@@ -1,6 +1,6 @@
 # User Test Cases
 
-> [!INTERESTING]
+> [!IMPORTANT]
 > These were the initial user test cases I identified when meeting with the ITSC team. After extensive conversations, I consolidated 20 baseline items that the team and I believed the application should handle.
 
 Sign-in and Home
