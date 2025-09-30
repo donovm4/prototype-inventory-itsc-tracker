@@ -1,0 +1,152 @@
+{% extends "base.html" %} {% block title %}Calendar{% endblock %} {% block content %}
+<center>
+
+    <form method="POST">
+
+        <label><b>Request:</b></label>
+
+        <br />
+
+        <textarea name="data" class="form-control" rows="5" cols="45"></textarea>
+
+        <br />
+        <br />
+
+        <div>
+
+            <label><b>Requestor:</b></label>
+
+            <br />
+
+            <select name="requestor">
+
+                <option hidden="">SELECT</option>
+
+                {% for u in users %}
+
+                <option value={{u.email}}>{{ u.email }}</option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <br />
+
+        <div>
+
+            <label><b>Start Time:</b></label>
+
+            <br />
+
+            <input type="datetime-local" name="start" max="2022-05-13T22:00" required>
+
+        </div>
+
+        <br />
+
+        <div>
+
+            <label><b>End Time:</b></label>
+
+            <br />
+
+            <input type="datetime-local" name="end" max="2022-05-13T22:00" required>
+
+        </div>
+
+        <br />
+
+        <label><b>Received By:</b></label>
+
+        <br />
+
+        <input name="received_by" placeholder="Enter Name"/>
+
+        <br />
+        <br />
+
+        <button type="submit" onclick="">SUBMIT</button>
+
+    </form>
+
+    <br />
+    <hr />
+
+</center>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          let calendarEl = document.getElementById('calendar');
+          let calendar = new FullCalendar.Calendar(calendarEl, {
+              headerToolbar: { center: 'dayGridMonth,timeGridWeek' },
+              initialView: 'dayGridMonth',
+              selectable: true,
+              events: [
+                  {% for x in upcoming %}
+                      {
+                          title: '{{ x.data | safe}}',
+                          start: '{{ x.start }}',
+                          end: '{{ x.end }}',
+                          url: '/calendar/event/{{ x.id}}',
+                      },
+                  {% endfor %}
+              ],
+              eventColor: 'lightgreen' //customize colors
+          });
+          calendar.render();
+      });
+      function pop() {
+          var popup = document.getElementById()
+      }
+    </script>
+    <br/>
+
+    <div class="bordered">
+        <div id="calendar">
+        </div>
+    </div>
+
+    <br />
+    <hr />
+    <br />
+
+    <div>
+
+        {% for event in upcoming %}
+
+            <div class="bordered">
+
+                <p><b>Equipment:</b>
+                <br />
+                    {{ event.data }}
+                </p>
+
+                <br />
+
+                <p><b>Requestor: </b>{{ event.requestor }}</p>
+
+                <p><b>Start Time: </b>{{ event.start.strftime('%A, %B %d, %Y at %I:%M %p') }}</p>
+
+                <p><b>End Time: </b>{{ event.end.strftime('%A, %B %d, %Y at %I:%M %p') }}</p>
+
+                <p><b>Recieved by: </b>{{ event.received_by }}</p>
+
+                <button type="button" class="close" onClick="deleteEvent({{ event.id }})">
+                <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            <br />
+
+        {% endfor %}
+
+    </div>
+
+
+
+{% endblock %}

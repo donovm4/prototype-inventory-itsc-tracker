@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %}Overdue{% endblock %} {% block content %}
+
+<script>
+// When the user clicks on <div>, open the popup
+function popUp() {
+  var popup = document.getElementById("myPopUp");
+  popup.classList.toggle("show");
+}
+</script>
+
+<p><b>Requestor: </b><br />
+
+{% for u in users %}
+
+{% if u.email == event.requestor %}
+
+<div class="popup" onclick="popUp()">{{ u.first_name }} {{ u.last_name }}
+    <span class="popuptext" id="myPopUp"><a href="">{{ u.email }}</a></span>
+</div>
+
+{% endif %}
+
+{% endfor %}
+
+</p>
+
+<br />
+
+<p><b>Equipment: </b><br />{{ event.data }}</p>
+
+<br />
+
+
+<p><b>Start: </b><br />{{ event.start.strftime('%A, %B %d, %Y at %I:%M %p') }}</p>
+
+<br />
+
+
+<p><b>End: </b><br />{{ event.end.strftime('%A, %B %d, %Y at %I:%M %p') }}</p>
+
+<br />
+
+
+<p><b>Received By: </b><br />{{ event.received_by }}</p>
+
+{% endblock %}

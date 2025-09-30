@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+
+      .admin_users {
+        color: white;
+        background-color: #000080;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 2px 2px 20px 23px #4d88ff;
+      }
+
+      .faculty_users {
+        color: white;
+        background-color: #990000;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 2px 2px 20px 23px #ff704d;
+      }
+
+      .itsc_users {
+        color: white;
+        background-color: #408000;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 2px 2px 20px 23px #59b300;
+      }
+
+      .student_users {
+        color: white;
+        background-color: #cc5200;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 2px 2px 20px 23px #ff9933;
+      }
+
+      select {
+        height: 30px;
+      }
+
+      html {
+        overflow: auto;
+      }
+
+      html,
+      body,
+      iframe {
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        border: none;
+      }
+
+      iframe {
+        display: block;
+        width: 100%;
+        border: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      #home:hover,
+      #calendar:hover,
+      #view:hover,
+      #create:hover,
+      #view:hover,
+      #inventory:hover,
+      #v2:hover,
+      #today:hover,
+      #overdue:hover,
+      #logout:hover {
+        background-color: goldenrod;
+      }
+
+      span:hover {
+        color: red;
+      }
+
+      #footer {
+        color: gray;
+      }
+
+    </style>
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  </head>
+
+  <body>
+
+    <nav>
+      <div class="logo">
+      <img class="msmu_icon" alt="Mount St. Mary's arc logo" src="https://msmary.edu/_files/svg/logo.svg" height="85" width="85">
+          <br />
+        <h4>Mount St. Mary's University</h4>
+        <h6>Information Technology Support Center</h6>
+      </div>
+
+      <ul class="nav-links">
+
+        {% if user.is_authenticated %} <!-- checks if user is signed in-->
+
+        <li>
+            <center><a href="/home">Home</a></center>
+        </li>
+
+        <li>&nbsp;&nbsp;</li>
+
+
+
+            {% if user.department == 'ITSC' or user.department == 'MANAGER' or user.department == 'LEAD' %} <!-- ITSC workers and MANAGERs only -->
+
+                <li>
+                    <center><a href="/calendar">Calendar</a></center>
+                </li>
+
+                <li>&nbsp;&nbsp;</li>
+
+                {% if user.department == 'MANAGER' or user.department == 'LEAD'%}
+
+                    <li>
+                        <center><a href="/tech/set_up_user">Add User</a></center> <!-- MANAGER access only -->
+                    </li>
+
+                    <li>&nbsp;&nbsp;</li><li>&nbsp;&nbsp;</li>
+
+                {%endif%}
+
+                <li>
+                    <center><a href="/tech/view_users">View Users</a></center>
+                </li>
+
+                <li>&nbsp;&nbsp;</li><li>&nbsp;&nbsp;</li>
+
+                <li>
+                    <center><a href="/tech/my_tickets">My Tickets</a></center>
+                </li>
+
+                <li>&nbsp;&nbsp;</li><li>&nbsp;&nbsp;</li>
+
+                <li>
+                    <center><a href="/tech/item_log">Item Registry</a></center>
+                </li>
+
+                <li>&nbsp;&nbsp;</li><li>&nbsp;&nbsp;</li>
+
+                <li>
+                    <center><a href="/tech/equipment_log">Item Log</a></center>
+                </li>
+
+                <li>&nbsp;&nbsp;</li><li>&nbsp;&nbsp;</li>
+
+                <li>
+                    <center><a href="/tech/today">Today</a></center>
+                </li>
+
+                <li>&nbsp;&nbsp;</li>
+
+                <li>
+                    <center><a href="/tech/overdue">Overdue</a></center>
+                </li>
+
+                <li>&nbsp;&nbsp;</li>
+
+            {%endif%}
+
+            {% if user.department != 'ITSC' and user.department != 'MANAGER' and user.department != 'LEAD' %}
+
+                <li>
+                <center><a href="/my_history">My Tickets</a></center>
+                </li>
+
+            {% endif %}
+
+            <li>
+                <center><a href="/logout">Logout</a></center>
+            </li>
+
+        {% else %}
+
+        <!--<a class="nav-item nav-link" id="login" href="/login">Login</a> -->
+
+        {% endif %}
+
+      </ul>
+
+        <div class="expand">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+
+    </nav>
+
+    <script src="{{ url_for('static', filename='nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+    {% for category, message in messages %} {% if category == 'error' %}
+
+    <div class="error" role="alert">
+
+      {{ message }}
+
+      <button type="button" class="close" data-dismiss="alert">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+
+      {{ message }}
+
+      <button type="button" class="close" data-dismiss="alert">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
+    </div>
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+
+    <div class="container">
+        <div class="contained">{% block content %} {% endblock %}</div>
+    </div>
+
+
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+
+  </body>
+
+
+
+  <br />
+
+</html>

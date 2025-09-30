@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block title %}My Tickets{% endblock %} {% block content %}
+
+<h1 align="center">* My History *</h1>
+
+<ul class="list-group list-group-flush" id="tickets">
+
+{% for ticket in user.tickets %}
+
+<li class="list-group-item">
+
+Ticket #2021{{ user.id }}{{ ticket.id }}<br />
+DATE: {{ ticket.date.strftime('%A, %B %d at %I:%M %p ') }}<br />
+{{ ticket.data }}
+
+<button type="button" class="close" onClick="deleteTicket({{ ticket.id }})">
+<span aria-hidden="true">&times;</span>
+</button>
+
+</li>
+
+<br />
+
+<div>
+
+{% for r in responses %}
+
+{% if ticket.id == r.ticket_id %}
+
+{% for u in users %}
+
+{% if u.id == r.user_id %}
+
+    <b>{{ u.first_name }} {{ u.last_name }}:</b>
+
+{% endif %}
+
+{% endfor %}
+
+{{ r.data }}
+
+<br />
+
+{% endif %}
+
+{% endfor %}
+
+</div>
+
+<br />
+
+
+<div>
+
+<form method="POST" action="/response/{{ticket.id}}">
+
+<input name="response" placeholder="Response"/>
+
+<button type="submit" name="">SEND</button>
+
+</form>
+
+</div>
+
+<br />
+
+{% endfor %}
+
+</ul>
+
+{% endblock %}
+

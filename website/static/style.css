@@ -1,0 +1,233 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+}
+
+div {
+    border-radius: 25px;
+}
+
+.alert{
+    background-color: palegoldenrod;
+    text-align: center;
+}
+
+#profile {
+    align: left;
+}
+
+#calendar:hover{
+    background-color: white;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    padding: 0px;
+}
+
+.card img{
+    border-radius: 25px;
+    padding: 5px;
+}
+
+
+.card h1{
+    padding: 0px;
+}
+
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: navy;
+}
+
+.msmu_icon{
+    position: relative;
+    left: -2.5px;
+    top: 4.5px;
+}
+
+.logo{
+    color: antiquewhite;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 30px;
+}
+
+.logo h4{
+    position:relative;
+    left: 27px;
+}
+
+.logo h6{
+    position: relative;
+
+}
+
+.bordered{
+    border-style: groove;
+    padding: 10px;
+}
+
+.bordered li{
+    list-style: none;
+}
+
+.contained{
+    padding: 50px;
+}
+
+.form-control{
+    position: relative;
+    text-align: center;
+}
+
+h1, h2, h3{
+    padding: 25px;
+}
+
+.nav-links{
+    display: flex;
+    justify-content: space-around;
+    width: 45%;
+}
+
+.nav-links li{
+    list-style: none;
+}
+
+.nav-links a{
+    color: antiquewhite;
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.expand{
+    display: none;
+    cursor: pointer;
+}
+
+.expand div{
+    width: 25px;
+    height: 3px;
+    background-color: antiquewhite;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.form-group{
+    text-align: center;
+    padding: 10px;
+}
+
+@media screen and (max-width: 1024px){
+    .nav-links{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    body{
+        overflow-x: hidden;
+    }
+    .nav-links{
+        position: absolute;
+        right: 0px;
+        height: 90vh;
+        top: 10vh;
+        background-color: navy;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .expand{
+        display: block;
+    }
+}
+
+.nav-active{
+    transform: translateX(0%);
+}
+
+@keyframes navLinkFade{
+    from{
+        opacity: 0;
+        transform:  translateX(50px);
+    }
+    to{
+        opacity: 1;
+        transform:  translateX(0px);
+    }
+}
+
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.toggle .line2{
+    opacity: 0;
+}
+
+.toggle .line3{
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: lightgrey;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: relative;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}

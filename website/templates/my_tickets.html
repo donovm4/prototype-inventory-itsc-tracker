@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% block title %}My Tickets{% endblock %} {% block content %}
+
+<br />
+<br />
+
+{% for t in assigned %}
+
+    {% if user.email == t.assigned_to %}
+
+        {% for ticket in tickets %}
+
+            {% if t.ticket_id == ticket.id %}
+
+                <div class="bordered">
+
+                <li class="list-group-item">
+
+                {% for user in users%}
+
+                    {% if user.id == ticket.user_id %}
+
+                        <p><b>From:</b> {{ user.first_name }} {{ user.last_name }} |
+                            <a href="mailto: {{user.email}}?subject=ITSC Notice TEST&body=This is a notice from Mount St. Mary's University Information Technology Student Center.">
+                                <u>{{user.email}}</u>
+                            </a>
+                        </p>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                <p><b>Ticket ID:</b> {{ ticket.id }}</p>
+
+                <p><b>Issue:</b> {{ ticket.data }}</p>
+
+                </li>
+
+                    <br />
+
+                    <div>
+
+                        {% for r in responses %}
+
+                            {% if ticket.id == r.ticket_id %}
+
+                                {% for u in users %}
+
+                                    {% if u.id == r.user_id %}
+
+                                        <b>{{ u.first_name }} {{ u.last_name }}:</b>
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ r.data }}
+
+                                <br />
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                    <br />
+
+
+                <div>
+
+                    <form method="POST" action="/response/{{ticket.id}}">
+
+                        <input name="response" placeholder="Response"/>
+
+                        <button type="submit" name="">SEND</button>
+
+                    </form>
+
+                </div>
+
+                    <br />
+
+                </div>
+
+
+
+
+
+            {% endif %}
+
+
+
+        {% endfor %}
+
+    {% endif %}
+
+<br />
+
+{% endfor %}
+
+{% endblock %}
+

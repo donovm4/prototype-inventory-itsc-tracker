@@ -1,0 +1,180 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+
+{% if user.department != "ITSC" and user.department != "MANAGER" and user.department != 'LEAD' %}
+
+<div class="card" id="profile">
+
+  <h1>{{ user.first_name }} {{ user.last_name}}</h1>
+
+  <p class="title">E-mail: {{ user.email }}</p>
+
+  <p>Department: {{ user.department }} | ID #68679{{ user.id }}</p>
+
+</div>
+
+<br />
+
+<hr />
+
+{% else %}
+
+<div class="card" id="profile">
+
+  <p>{{ user.first_name }} {{ user.last_name}} | Role: {{ user.department }}</p>
+
+  <p class="title">{{ user.email }}</p>
+
+  <p>ID #474445{{ user.id }}</p>
+
+</div>
+
+<br />
+
+<hr />
+
+{% endif %}
+
+{% if user.department != "ITSC" and user.department != "MANAGER" and user.department != 'LEAD' %}
+
+<h1 align="center">* Submit A Ticket *</h1>
+
+<form method="POST">
+
+  <center><textarea name="ticket" id="ticket" class="form-control"></textarea></center>
+
+  <br />
+
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Ticket</button>
+  </div>
+
+  <br />
+
+  <hr />
+
+</form>
+
+{% else %}
+
+<br />
+
+{% if user.department == 'MANAGER' or user.department == 'LEAD' %}
+
+<form method="POST">
+
+<b>Ticket #:</b>
+
+<select name="ticket_id">
+
+<option hidden="">SELECT</option>
+
+{% for ticket in tickets %}
+
+<option value={{ticket.id}}>{{ ticket.id }}</option>
+
+{% endfor %}
+
+</select>
+
+<b>Assign To:</b>
+
+<select name="assign">
+
+<option hidden="">ASSIGN</option>
+
+{% for lead in leads %}
+
+<option value={{lead.email}}>{{ lead.email }}</option>
+
+{% endfor %}
+
+{% for manager in managers %}
+
+<option value={{manager.email}}>{{ manager.email }}</option>
+
+{% endfor %}
+
+<option value="ITSC">Student Workers</option>
+
+</select>
+
+<button type="submit" onClick="">ASSIGN</button>
+
+<br />
+
+</form>
+
+<br />
+
+{% endif %}
+
+<hr />
+
+<h2 align="center">Current Tickets:</h2>
+
+{% for data in tickets %}
+
+<div class="bordered">
+
+<li class="list-group-item">
+
+  {% for user in users %}{% if user.id == data.user_id %}<b>{{ user.first_name }} {{ user.last_name }} </b> |
+  <a href="mailto: {{user.email}}?subject=ITSC Notice TEST&body=This is a notice from Mount St. Mary's University Information Technology Student Center.">
+  <u>{{user.email}}</u>
+  </a>
+  {% endif %}{% endfor %}
+  <br />
+  <b>User ID#:</b> {{ data.user_id }} <br />
+  <b>Ticket:</b> {{ data.id }} | Date: {{ data.date.strftime('%A, %B %d at %I:%M %p ') }} <br /><hr />
+  <b>Issue:</b>
+  {{ data.data }}
+
+  <button type="button" class="close" onClick="deleteTicket({{ data.id }})">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+</li>
+
+</div>
+
+<br />
+
+{% endfor %}
+
+<h2 align="center">*Assigned Tickets*</h2>
+
+  {% for ticket in assigned %}
+
+  <div class="bordered">
+
+    <li class="list-group-item">
+
+    <p>Ticket: {{ ticket.ticket_id }}</p>
+    <p>Assigned to: <a href=""><u>{{ ticket.assigned_to }}</u></a></p>
+
+    {% for t in tickets %}
+
+      {% if t.id == ticket.ticket_id %}
+
+        {{ t.data }}
+
+      {% endif %}
+
+    {% endfor %}
+
+    <button type="button" class="close" onClick="deleteAssign({{ ticket.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    </li>
+
+  </div>
+
+  <br />
+  <br />
+
+  {% endfor %}
+
+{% endif %}
+
+{% endblock %}
