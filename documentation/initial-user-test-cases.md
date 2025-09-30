@@ -15,7 +15,7 @@
 ## Navigation
 
 7.	User clicks `Logout` / User is logged out and sent to sign-in page
-8.	User clicks `Calendar` link / application properly frames the Mount`s academic calendar
+8.	User clicks `Calendar` link / application properly frames the Mount's academic calendar
 9.	User clicks `View users` link / users page opens in new tab
 10.	User clicks links in nav-bar / User is directed to respective pages
 
