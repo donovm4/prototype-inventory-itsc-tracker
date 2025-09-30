@@ -186,7 +186,7 @@ def view_users():
     else:
         flash('Access Restricted', category='error')
         return redirect(url_for('routes.home'))
-    return render_template("view.html", user=current_user, users=users, out=out)
+    # return render_template("view.html", user=current_user, users=users, out=out)
 
 
 @auth.route('/tech/item_log', methods=['GET', 'POST'])
@@ -300,7 +300,7 @@ def view_inventory():
     else:
         flash('Access Restricted', category='error')
         return redirect(url_for('routes.home'))
-    return render_template("equipment_log.html", user=current_user, users=users)
+    # return render_template("equipment_log.html", user=current_user, users=users)
 
 
 @auth.route('/tech/overdue', methods=['GET', 'POST'])
@@ -314,8 +314,7 @@ def overdue():
     else:
         flash('Access Restricted', category='error')
         return redirect(url_for('routes.home'))
-
-    return render_template("overdue.html", user=current_user, out=out, users=users)
+    # return render_template("overdue.html", user=current_user, out=out, users=users)
 
 
 @auth.route('/tech/today', methods=['GET', 'POST'])
@@ -352,4 +351,4 @@ def today():
     else:
         flash('Access Restricted', category='error')
         return redirect(url_for('routes.home'))
-    return render_template("today.html", user=current_user, out=out, users=users, today=day)
+    # return render_template("today.html", user=current_user, out=out, users=users, today=day)
